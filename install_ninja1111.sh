@@ -8,9 +8,9 @@ mkdir .build && cd .build && cmake .. && cmake --build . -j$(nproc) --target ins
 cd ~
 rm -rf re2c-3.0*
 
-wget -nv https://github.com/ninja-build/ninja/archive/refs/tags/v1.11.0.tar.gz --no-check-certificate --content-disposition
-tar xvf ninja-1.11.0.tar.gz
-cd ninja-1.11.0
+wget -nv https://github.com/ninja-build/ninja/archive/refs/tags/v1.11.1.tar.gz --no-check-certificate --content-disposition
+tar xvf ninja-1.11.1.tar.gz
+cd ninja-1.11.1
 mkdir build;cd build;cmake ..;make install -j$(nproc)
 cd ~
 rm -rf ninja-*
