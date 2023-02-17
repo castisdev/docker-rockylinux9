@@ -14,3 +14,4 @@ cd ninja-1.11.1
 mkdir build;cd build;cmake ..;make install -j$(nproc)
 cd ~
 rm -rf ninja-*
+ccache -C
