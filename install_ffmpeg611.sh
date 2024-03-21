@@ -1,6 +1,6 @@
 #!/bin/bash -e
 set -x #echo on
-yum -y --enablerepo=crb install libxml2-devel SDL2-devel alsa-lib-devel libXv-devel libX11-devel libXext-devel autoconf automake libtool yasm nasm bzip2 fontconfig-devel freetype-devel fribidi-devel openssl-devel; yum -y clean all
+yum -y --enablerepo=crb install libxml2-devel SDL2-devel alsa-lib-devel libXv-devel libX11-devel libXext-devel autoconf automake libtool yasm nasm bzip2 fontconfig-devel freetype-devel fribidi-devel harfbuzz-devel harfbuzz-devel openssl-devel; yum -y clean all
 
 cd ~
 wget -nv --no-check-certificate --content-disposition https://github.com/cisco/openh264/archive/refs/tags/v2.4.1.tar.gz
@@ -42,11 +42,11 @@ wget -nv --no-check-certificate https://ffmpeg.org/releases/ffmpeg-6.1.1.tar.bz2
 tar xf ffmpeg-6.1.1.tar.bz2
 cd ffmpeg-6.1.1
 
-PKG_CONFIG_PATH=/usr/local/lib/pkgconfig ./configure --enable-gpl --enable-shared --enable-libxml2 --enable-openssl --enable-version3 --enable-libopenh264 --enable-libopus --enable-libx264 --enable-libx265 --enable-libfontconfig --enable-libfreetype --enable-libfribidi
+PKG_CONFIG_PATH=/usr/local/lib/pkgconfig ./configure --enable-gpl --enable-shared --enable-libxml2 --enable-openssl --enable-version3 --enable-libopenh264 --enable-libopus --enable-libx264 --enable-libx265 --enable-libfontconfig --enable-libfreetype --enable-libfribidi --enable-libharfbuzz
 make install -j$(nproc)
 echo "/usr/local/lib" >> /etc/ld.so.conf.d/ffmpeg.conf
 
-PKG_CONFIG_PATH=/usr/local/lib/pkgconfig ./configure --prefix=/usr/local/lib/ffmpeg_lgpl --enable-shared --enable-libxml2 --enable-openssl --enable-libopenh264 --enable-libopus --enable-libfontconfig --enable-libfreetype --enable-libfribidi
+PKG_CONFIG_PATH=/usr/local/lib/pkgconfig ./configure --prefix=/usr/local/lib/ffmpeg_lgpl --enable-shared --enable-libxml2 --enable-openssl --enable-libopenh264 --enable-libopus --enable-libfontconfig --enable-libfreetype --enable-libfribidi --enable-libharfbuzz
 make install -j$(nproc)
 
 ldconfig
