@@ -84,6 +84,9 @@ RUN /script/install_zsh59.sh
 ADD install_ninja1121.sh /script/
 RUN /script/install_ninja1121.sh
 
+ADD install_srt154.sh /script/
+RUN /script/install_srt154.sh
+
 ADD install_ffmpeg702.sh /script/
 RUN /script/install_ffmpeg702.sh
 
