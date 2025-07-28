@@ -1,5 +1,5 @@
 # Pull base image
-FROM rockylinux/rockylinux:9
+FROM nvidia/cuda:12.9.1-devel-rockylinux9
 
 LABEL org.opencontainers.image.source https://github.com/castisdev/docker-rockylinux9
 
