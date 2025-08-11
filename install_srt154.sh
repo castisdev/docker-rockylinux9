@@ -1,6 +1,9 @@
 #!/bin/bash -e
 set -x #echo on
+source ${BUILD_TOOLSET_ENABLE}
 cd ~
+dnf -y install tcl
+dnf -y clean all
 wget -nv --no-check-certificate --content-disposition https://github.com/Haivision/srt/archive/refs/tags/v1.5.4.tar.gz
 tar xvf srt-1.5.4.tar.gz
 cd srt-1.5.4

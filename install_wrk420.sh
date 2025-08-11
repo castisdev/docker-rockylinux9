@@ -1,6 +1,8 @@
 #!/bin/sh -e
 set -x #echo on
-yum -y install perl; yum -y clean all
+source ${BUILD_TOOLSET_ENABLE}
+dnf -y install perl
+dnf -y clean all
 cd ~
 wget -nv --no-check-certificate --content-disposition https://github.com/wg/wrk/archive/refs/tags/4.2.0.tar.gz
 tar xvf wrk-4.2.0.tar.gz
@@ -9,4 +11,3 @@ make -j$(nproc)
 cp wrk /usr/local/bin/
 cd ~
 rm -rf wrk-4.2.0*
-ccache -C
