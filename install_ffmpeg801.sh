@@ -46,9 +46,9 @@ cd ~
 rm -rf nv-codec-headers*
 
 cd ~
-wget -nv --no-check-certificate https://ffmpeg.org/releases/ffmpeg-7.0.3.tar.bz2
-tar xf ffmpeg-7.0.3.tar.bz2
-cd ffmpeg-7.0.3
+wget -nv --no-check-certificate https://ffmpeg.org/releases/ffmpeg-8.0.1.tar.bz2
+tar xf ffmpeg-8.0.1.tar.bz2
+cd ffmpeg-8.0.1
 
 PKG_CONFIG_PATH="/usr/local/lib/pkgconfig:$PKG_CONFIG_PATH" ./configure --enable-gpl --enable-shared --enable-libxml2 --enable-openssl --enable-version3 --enable-libopenh264 --enable-libopus --enable-libx264 --enable-libx265 --enable-libfontconfig --enable-libfreetype --enable-libfribidi --enable-libharfbuzz --enable-libsrt
 make install -j$(nproc)
@@ -59,8 +59,9 @@ make install -j$(nproc)
 
 PKG_CONFIG_PATH="/usr/local/lib/pkgconfig:$PKG_CONFIG_PATH" ./configure --prefix=/usr/local/lib/ffmpeg_nv --enable-gpl --enable-shared --enable-libxml2 --enable-openssl --enable-version3 --enable-libopenh264 --enable-libopus --enable-libx264 --enable-libx265 --enable-libfontconfig --enable-libfreetype --enable-libfribidi --enable-libharfbuzz --enable-libsrt --enable-nonfree --enable-cuda-nvcc --enable-libnpp --extra-cflags=-I/usr/local/cuda/include --extra-ldflags=-L/usr/local/cuda/lib64
 make install -j$(nproc)
+cat ffbuild/config.log
 
 ldconfig
 
 cd ~
-rm -rf ffmpeg-7.0.3*
+rm -rf ffmpeg-8.0.1*
