@@ -1,6 +1,6 @@
 #!/bin/bash -e
 set -x #echo on
-dnf -y --enablerepo=crb install libxml2-devel SDL2-devel alsa-lib-devel libXv-devel libX11-devel libXext-devel autoconf automake libtool yasm nasm bzip2 fontconfig-devel freetype-devel fribidi-devel harfbuzz-devel harfbuzz-devel openssl-devel
+dnf -y --enablerepo=crb install libxml2-devel SDL2-devel alsa-lib-devel libXv-devel libX11-devel libXext-devel autoconf automake libtool yasm nasm bzip2 fontconfig-devel freetype-devel fribidi-devel harfbuzz-devel harfbuzz-devel openssl-devel cppzmq-devel
 dnf -y clean all
 
 cd ~
@@ -50,17 +50,20 @@ wget -nv --no-check-certificate https://ffmpeg.org/releases/ffmpeg-8.1.tar.bz2
 tar xf ffmpeg-8.1.tar.bz2
 cd ffmpeg-8.1
 
-PKG_CONFIG_PATH="/usr/local/lib/pkgconfig:$PKG_CONFIG_PATH" ./configure --enable-gpl --enable-shared --enable-libxml2 --enable-openssl --enable-version3 --enable-libopenh264 --enable-libopus --enable-libx264 --enable-libx265 --enable-libfontconfig --enable-libfreetype --enable-libfribidi --enable-libharfbuzz --enable-libsrt
+PKG_CONFIG_PATH="/usr/local/lib/pkgconfig:$PKG_CONFIG_PATH" ./configure --enable-gpl --enable-shared --enable-libxml2 --enable-openssl --enable-version3 --enable-libopenh264 --enable-libopus --enable-libx264 --enable-libx265 --enable-libfontconfig --enable-libfreetype --enable-libfribidi --enable-libharfbuzz --enable-libsrt --enable-libzmq
 make install -j$(nproc)
 echo "/usr/local/lib" >> /etc/ld.so.conf.d/ffmpeg.conf
 
-PKG_CONFIG_PATH="/usr/local/lib/pkgconfig:$PKG_CONFIG_PATH" ./configure --prefix=/usr/local/lib/ffmpeg_lgpl --enable-shared --enable-libxml2 --enable-openssl --enable-libopenh264 --enable-libopus --enable-libfontconfig --enable-libfreetype --enable-libfribidi --enable-libharfbuzz --enable-libsrt
+PKG_CONFIG_PATH="/usr/local/lib/pkgconfig:$PKG_CONFIG_PATH" ./configure --prefix=/usr/local/lib/ffmpeg_lgpl --enable-shared --enable-libxml2 --enable-openssl --enable-libopenh264 --enable-libopus --enable-libfontconfig --enable-libfreetype --enable-libfribidi --enable-libharfbuzz --enable-libsrt --enable-libzmq
 make install -j$(nproc)
 
-PKG_CONFIG_PATH="/usr/local/lib/pkgconfig:$PKG_CONFIG_PATH" ./configure --prefix=/usr/local/lib/ffmpeg_nv --enable-gpl --enable-shared --enable-libxml2 --enable-openssl --enable-version3 --enable-libopenh264 --enable-libopus --enable-libx264 --enable-libx265 --enable-libfontconfig --enable-libfreetype --enable-libfribidi --enable-libharfbuzz --enable-libsrt --enable-nonfree --enable-cuda-nvcc --extra-cflags=-I/usr/local/cuda/include --extra-ldflags=-L/usr/local/cuda/lib64
+PKG_CONFIG_PATH="/usr/local/lib/pkgconfig:$PKG_CONFIG_PATH" ./configure --prefix=/usr/local/lib/ffmpeg_nv --enable-gpl --enable-shared --enable-libxml2 --enable-openssl --enable-version3 --enable-libopenh264 --enable-libopus --enable-libx264 --enable-libx265 --enable-libfontconfig --enable-libfreetype --enable-libfribidi --enable-libharfbuzz --enable-libsrt --enable-libzmq --enable-nonfree --enable-cuda-nvcc --extra-cflags=-I/usr/local/cuda/include --extra-ldflags=-L/usr/local/cuda/lib64
 make install -j$(nproc)
 
 ldconfig
+
+gcc -I. tools/zmqsend.c -o zmqsend -L./libavutil -lavutil -lzmq
+cp zmqsend /usr/local/bin
 
 cd ~
 rm -rf ffmpeg-8.1*
