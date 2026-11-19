@@ -87,8 +87,5 @@ make install -j$(nproc)
 
 ldconfig
 
-gcc -I. tools/zmqsend.c -o zmqsend -L./libavutil -lavutil -lzmq
-cp zmqsend /usr/local/bin
-
 cd ~
 rm -rf ffmpeg-9.0.1*
